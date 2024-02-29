@@ -1,10 +1,9 @@
-import Navbar from "./components/Navbar";
+import Info from "./Info";
 
 function App() {
   return (
     <div style={{ width: "100vw" }}>
-      <Navbar />
-      Test App ok
+      <Info />
     </div>
   );
 }

@@ -3,7 +3,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import AdbIcon from "@mui/icons-material/Adb";
+import logoImg from "../public/logo.png";
+import "../styles/global.css";
 
 function Navbar() {
   return (
@@ -16,9 +17,6 @@ function Navbar() {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <Toolbar disableGutters>
-          <AdbIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "black" }}
-          />
           <Typography
             variant="h6"
             noWrap
@@ -34,12 +32,9 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SNAPGREDIENT
           </Typography>
 
-          <AdbIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1, color: "black" }}
-          />
           <Typography
             variant="h5"
             noWrap
@@ -56,8 +51,23 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SNAPGREDIENT
           </Typography>
+          <img
+            src={logoImg}
+            className="logoImgNavbar"
+            alt="Website Logo"
+            style={{
+              display: { xs: "none", md: "flex" },
+              marginRight: 1,
+              color: "black",
+              width: "2rem",
+              height: "auto",
+              // "@media (max-width: 660px)": {
+              //   width: "8rem",
+              // },
+            }}
+          />
         </Toolbar>
       </Container>
     </AppBar>
