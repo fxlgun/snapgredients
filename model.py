@@ -200,7 +200,6 @@ for panorama_image in panorama_images:
 # def clear_gpu_memory():
 #     torch.cuda.empty_cache()
 
-# torch.cuda.empty_cache()
 device = torch.device("cpu")
 print("TRocr begins and Device in use:", device)
 # Load the pre-trained processor
@@ -229,7 +228,7 @@ for file in files:
     pixel_values = processor(image, return_tensors="pt").pixel_values.to(device)
     
     # Measure GPU memory usage before inference
-    torch.cuda.reset_peak_memory_stats()
+    torch.cuda.empty_cache()
     
     # Measure time of inference
     start_time = time.time()
@@ -250,6 +249,7 @@ for file in files:
     print(inference_time)
 
 # //////////////////////////////////////////////////////////////////////////
+
 
 combined_dict = {}
 # Iterate over the nested_dict
