@@ -1,0 +1,159 @@
+.mainContainer {
+  background-color: white;
+  height: fit-content;
+}
+
+.scoreContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  padding: 50px;
+  height: 100px;
+  width: 100px;
+  background-color: #4be3ac;
+  font-family: "Madimi One", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: xx-large;
+  color: #032d3c;
+  border-radius: 14px;
+}
+.categoryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+}
+
+.categoryCard {
+  background-color: #032d3c;
+  color: #f7ff56;
+  font-family: "Kalnia", serif;
+  font-weight: 300;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 250px;
+  height: 200px;
+  display: flex;
+  margin: 9px;
+  flex-direction: column;
+  line-height: 1.5;
+  justify-content: center;
+  position: relative;
+  box-shadow: 6px 6px;
+}
+.categoryHead {
+  display: flex;
+  justify-content: center;
+  font-family: "Kalnia", serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: xx-large;
+  position: absolute;
+  top: 0;
+  flex: 2;
+  margin-bottom: 5px;
+}
+.categoryDeets {
+  display: flex;
+  justify-content: center;
+  font-family: "Sora", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: large;
+  flex: 4;
+  position: absolute;
+}
+
+.marqueeRow {
+  display: flex;
+}
+
+.categoryCard:hover {
+  background-color: #124050;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 650px) {
+  .categoryList {
+    display: flex;
+    flex-direction: column;
+  }
+  .categoryCard {
+    background-color: #032d3c;
+    font-family: "Kalnia", serif;
+    font-weight: 300;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    margin: 9px;
+    flex-direction: column;
+    line-height: 1.5;
+    justify-content: center;
+    position: relative;
+  }
+
+  .categoryContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .moveLeft,
+  .moveRight {
+    width: 100%;
+  }
+  .categoryHead {
+    display: flex;
+    justify-content: center;
+    font-family: "Kalnia", serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: medium;
+    position: absolute;
+    top: 0;
+    flex: 2;
+    margin-bottom: 5px;
+  }
+  .categoryDeets {
+    display: flex;
+    justify-content: center;
+    font-family: "Sora", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: medium;
+    flex: 4;
+    position: absolute;
+  }
+}
+/* .listContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0px auto;
+  max-width: 60vw;
+  max-height: 100vh;
+} */
+/* .ingredientList {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.ingredientListItems {
+  background-color: #f4e285;
+  padding: 20px;
+  border-radius: 15px;
+  line-height: 1.75;
+  font-weight: 400;
+  color: #5b8e7d;
+  display: flex;
+  flex-wrap: wrap;
+} */
