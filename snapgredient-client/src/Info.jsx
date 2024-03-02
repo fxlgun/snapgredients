@@ -1,10 +1,12 @@
 import Navbar from "./components/Navbar";
 import "./styles/info.css";
 import Marquee from "react-fast-marquee";
-
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import retryIcon from "./public/retry.png";
 const Info = () => {
   const payload = {
-    score: 2,
+    score: 6,
     categories: {
       "Nutritional Value":
         "Low in unhealthy components (e.g., saturated fats, added sugars)",
@@ -27,26 +29,21 @@ const Info = () => {
   return (
     <div className="mainContainer">
       <Navbar />
-      <div className="scoreContainer">{payload.score}/10</div>
+      <div className="scoreContainer" style={{ width: 200, height: 200 }}>
+        <div
+          className="retryScoreContainer"
+          style={{ width: 200, height: 200 }}
+        >
+          <CircularProgressbar
+            text={`${payload.score}/10`}
+            maxValue={10}
+            minValue={1}
+            value={payload.score}
+            className="progressbar"
+          />
+        </div>
+      </div>
       <div className="listContainer">
-        {/* <div className="ingredientList">
-          <h3 className="infoHead">Your Ingredients</h3>
-
-          <ul className="ingredientListItems">
-            <li>Rice Meal: 42.7</li>
-            <li>Edible Vegetable Oil (Palmolein Oil): 8.89</li>
-            <li>Corn Meal: 19.7</li>
-            <li>Spices and condiments: 8.89</li>
-            <li>Gram Meal: 3.3</li>
-            <li>Salt: 8.89</li>
-            <li>Sugar: 8.89</li>
-            <li>Tomato Powder: 0.1</li>
-            <li>Citric Acid (330): 8.89</li>
-            <li>Dextrose: 8.89</li>
-            <li>Milk Solids: 8.89</li>
-            <li>Edible Starch: 8.89</li>
-          </ul>
-        </div> */}
         <div className="categoryList">
           <div className="categoryContainer">
             <Marquee
@@ -94,6 +91,20 @@ const Info = () => {
                   </div>
                 ))}
             </Marquee>
+            <button className="btn">
+              <img
+                src={retryIcon}
+                alt="retry icon"
+                style={{
+                  display: { xs: "none", md: "flex" },
+                  marginRight: 3,
+                  color: "#5B8E7D",
+                  width: "2rem",
+                  height: "auto",
+                }}
+              />
+              Retry
+            </button>
           </div>
         </div>
       </div>
