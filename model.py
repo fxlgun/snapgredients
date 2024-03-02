@@ -18,7 +18,7 @@ import requests
 detector = keras_ocr.detection.Detector()
 
 # Path to the input image
-image = cv2.imread("haldiram.jpeg")
+image = cv2.imread("haldiram.jpg")
 
 # Directory to save output images
 # output_directory = "Custom_Dataset"
@@ -312,7 +312,7 @@ def draw_centroids(image, centroids, texts):
         cv2.putText(image, f"{text} ({x},{y})", (x + 10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)  # Write text and centroid coordinates
 
 # Load the image
-image = cv2.imread("haldiram.jpeg")
+image = cv2.imread("haldiram.jpg")
 
 # Create centroid dictionary
 new_data = create_centroid_dict(combined_dict)
