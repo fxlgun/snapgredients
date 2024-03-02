@@ -8,15 +8,27 @@ import "../styles/global.css";
 
 function Navbar() {
   return (
-    <AppBar
-      position="static"
-      sx={{ boxShadow: 0, backgroundColor: "transparent" }}
-    >
+    <AppBar sx={{ boxShadow: 0, backgroundColor: "transparent" }}>
       <Container
         maxWidth="xl"
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Toolbar disableGutters>
+        <Toolbar>
+          <img
+            src={logoImg}
+            className="logoImgNavbar"
+            alt="Website Logo"
+            style={{
+              display: { xs: "none", md: "flex" },
+              marginRight: 8,
+              width: "2rem",
+              height: "auto",
+              backgroundColor: "transparent",
+              // "@media (max-width: 660px)": {
+              //   width: "8rem",
+              // },
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -28,13 +40,12 @@ function Navbar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "black",
+              color: "#59981A",
               textDecoration: "none",
             }}
           >
             SNAPGREDIENT
           </Typography>
-
           <Typography
             variant="h5"
             noWrap
@@ -47,27 +58,12 @@ function Navbar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "black",
+              color: "#59981A",
               textDecoration: "none",
             }}
           >
             SNAPGREDIENT
           </Typography>
-          <img
-            src={logoImg}
-            className="logoImgNavbar"
-            alt="Website Logo"
-            style={{
-              display: { xs: "none", md: "flex" },
-              marginRight: 1,
-              color: "black",
-              width: "2rem",
-              height: "auto",
-              // "@media (max-width: 660px)": {
-              //   width: "8rem",
-              // },
-            }}
-          />
         </Toolbar>
       </Container>
     </AppBar>

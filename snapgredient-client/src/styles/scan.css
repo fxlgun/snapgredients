@@ -1,0 +1,36 @@
+.FileUploaderMainContainer{
+    height: 250px;
+    width: 250px;
+    position:relative
+}
+.FileUploaderContainer{
+    height: 250px;
+    width: 250px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+
+}
+
+.FileUploaderBox{
+    height: 200px;
+    width: 200px;
+    background-color: #EFEFEF ;
+    border-radius: 15px;
+}
+
+.uploadIconImg{
+    height: 75px;
+    width: 75px;
+}
+
+.FileUploaderBox:hover{
+    cursor: pointer;
+    background-color: #F1EAFF;
+    border: 1px dashed #E5D4FF;
+}
+
+.lr-simple-btn button{
+    width: 200px !important;
+}
+
+

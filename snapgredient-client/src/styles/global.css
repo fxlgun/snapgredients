@@ -23,3 +23,22 @@ a {
 li {
   list-style: none;
 }
+
+.uploadcare--widget__button.uploadcare--widget__button_type_open {
+  background-color: #2b9dff;
+
+}
+
+.flex{
+  display: flex;
+}
+
+.center{
+  justify-content: center;
+  align-items: center;
+}
+
+.column{
+  flex-direction: column;
+}
+
