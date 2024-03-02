@@ -1,6 +1,6 @@
 from PIL import Image
 import torch
-from transformers import VisionEncoderDecoderModel, TrOCRProcessor
+# from transformers import VisionEncoderDecoderModel, TrOCRProcessor
 import os
 import time
 import os
@@ -9,7 +9,8 @@ import numpy as np
 import time
 import keras_ocr
 import re 
-from torch.nn.functional import interpolate
+# from torch.nn.functional import interpolate
+import requests
 
 
 
@@ -17,7 +18,7 @@ from torch.nn.functional import interpolate
 detector = keras_ocr.detection.Detector()
 
 # Path to the input image
-image = cv2.imread("1.jpg")
+image = cv2.imread("haldiram.jpeg")
 
 # Directory to save output images
 # output_directory = "Custom_Dataset"
@@ -44,7 +45,7 @@ all_coordinates = []
 #         all_coordinates.append(coordinates)  # Append coordinates to the array
 
 #     # Save output image with prefix 'detector'
-#     output_image_path = os.path.join(output_directory, "single_image_detected.jpg")
+#     output_image_path = ("single_image_detected.jpg")
 #     cv2.imwrite(output_image_path, image)
     
 #     # Close all OpenCV windows
@@ -116,6 +117,7 @@ for key, coordinates_list in group_dictionary.items():
         padded_image = np.hstack((whitespace_image, image[y:y+h, x:x+w], whitespace_image))
         # Save the padded image
         cv2.imwrite(f'Cropped_Images/{key}_box_{i}.jpg', padded_image)
+
 
 
 # ///////////////////////////////////////////////////////////////////////////////////
@@ -197,57 +199,41 @@ for panorama_image in panorama_images:
 
 # //////////////////////////////////////////////////////////////////////////////////
 
-# def clear_gpu_memory():
-#     torch.cuda.empty_cache()
+api_url = "https://api-inference.huggingface.co/models/microsoft/trocr-large-printed"
 
-# torch.cuda.empty_cache()
-device = torch.device("cpu")
-print("TRocr begins and Device in use:", device)
-# Load the pre-trained processor
-processor = TrOCRProcessor.from_pretrained('microsoft/trocr-large-printed')
-model = VisionEncoderDecoderModel.from_pretrained('microsoft/trocr-large-printed').to(device)
 
-# Path to the folder containing the images
-folder_path = 'panaroma_images'
+image_folder = "panaroma_images"
 
-# List all files in the folder
-files = os.listdir(folder_path)
 
-# Sort the files based on the numbers extracted from their names
-files.sort(key=lambda x: int(re.findall(r'\d+', x)[0]))
+headers = {
+    "Content-Type": "image/jpeg",  # Adjust content type based on your image format
+    "Authorization": "Bearer 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"  # If API requires authentication
+}
+files = os.listdir(image_folder)
+string1 = ''
 results = {}
-# Loop through each image in the folder
-for file in files:
-    # Clear GPU memory
-    # clear_gpu_memory()
 
-    # Load the image
-    image_path = os.path.join(folder_path, file)
-    image = Image.open(image_path).convert('RGB')
-    
-    # Extract features from the image
-    pixel_values = processor(image, return_tensors="pt").pixel_values.to(device)
-    
-    # Measure GPU memory usage before inference
-    torch.cuda.reset_peak_memory_stats()
-    
-    # Measure time of inference
-    start_time = time.time()
-    
-    # Perform inference
-    generated_ids = model.generate(pixel_values)
-    
-    # Decode the generated text
-    generated_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    
-    # Print generated text
-    print(f"Output for {file}: {generated_text}")
-    words = generated_text.split(' ')
-    results[file] = words
-    # print(results)
-    # Calculate inference time
-    inference_time = time.time() - start_time
-    print(inference_time)
+for filename in files:
+    if filename.endswith(".jpg") or filename.endswith(".jpeg"):
+        image_path = os.path.join(image_folder, filename)
+
+        with open(image_path, "rb") as image_file:
+            image_data = image_file.read()
+
+        # Send POST request with image data
+        response = requests.post(api_url, headers=headers, data=image_data)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Extract text from response
+            text = response.json()
+            string1 = text[0]['generated_text']
+            # print(f"Output for {filename}: {string1}")
+            words = string1.split(' ')
+            results[filename] = words
+ 
+
+
 
 # //////////////////////////////////////////////////////////////////////////
 
@@ -261,41 +247,85 @@ for img_key, nested_info in nested_dict.items():
     # Combine the coordinates and text from results
     combined_dict[new_key] = {'coordinates': nested_info[list(nested_info.keys())[0]], 'text': results[img_key]}
 
-print(combined_dict)
+
 
 # /////////////////////////////////////////////////////////////////////
 
 # if u wanna draw boxes on image 
 
-def draw_boxes(image, coordinates, text):
-    for i, bbox in enumerate(coordinates):
-        # Convert coordinates to numpy array
-        bbox = np.array(bbox)
-        # Draw bounding box
-        cv2.polylines(image, [bbox], isClosed=True, color=(0, 255, 0), thickness=2)
-        # Draw text
-        if i < len(text):
-            cv2.putText(image, text[i], (bbox[0][0], bbox[0][1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    return image
+# def draw_boxes(image, coordinates, text):
+#     for i, bbox in enumerate(coordinates):
+#         # Convert coordinates to numpy array
+#         bbox = np.array(bbox)
+#         # Draw bounding box
+#         cv2.polylines(image, [bbox], isClosed=True, color=(0, 255, 0), thickness=2)
+#         # Draw text
+#         if i < len(text):
+#             cv2.putText(image, text[i], (bbox[0][0], bbox[0][1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+#     return image
 
-# Load input image
-input_image_path = "1.jpg"  # Replace with your image path
-input_image = cv2.imread(input_image_path)
+# # Load input image
+# input_image_path = "haldiram.jpeg"  # Replace with your image path
+# input_image = cv2.imread(input_image_path)
 
-# Check if image is loaded successfully
-if input_image is None:
-    print("Error: Image not found or unable to load.")
-else:
-    # Draw bounding boxes and text on input image
-    for key, value in combined_dict.items():
-        coordinates = value['coordinates']
-        text = value['text']
-        input_image = draw_boxes(input_image, coordinates, text)
+# # Check if image is loaded successfully
+# if input_image is None:
+#     print("Error: Image not found or unable to load.")
+# else:
+#     # Draw bounding boxes and text on input image
+#     for key, value in combined_dict.items():
+#         coordinates = value['coordinates']
+#         text = value['text']
+#         input_image = draw_boxes(input_image, coordinates, text)
 
-    # Display the image with OpenCV
-    cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
-    cv2.imshow('Image', input_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+#     cv2.imwrite('detected_image.jpg', input_image)
+#     # Display the image with OpenCV
+#     cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
+#     cv2.imshow('Image', input_image)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
 
 # # //////////////////////////////////////////////////////////////////////////////
+    
+def calculate_centroid(points):
+    x = sum(point[0] for point in points) / len(points)
+    y = sum(point[1] for point in points) / len(points)
+    return int(x), int(y)
+
+# Define a function to create centroid dictionary
+def create_centroid_dict(data):
+    new_data = {}
+    for key, value in data.items():
+        centroids = []
+        for coords in value['coordinates']:
+            centroid = calculate_centroid(coords)
+            centroids.append(centroid)
+        new_data[key] = {'centroid': centroids, 'text': value['text']}
+    return new_data
+
+# Define a function to draw centroids on the image
+def draw_centroids(image, centroids, texts):
+    for centroid, text in zip(centroids, texts):
+        x, y = centroid
+        cv2.circle(image, (x, y), 5, (0, 255, 0), -1)  # Draw a green circle at the centroid
+        cv2.putText(image, f"{text} ({x},{y})", (x + 10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)  # Write text and centroid coordinates
+
+# Load the image
+image = cv2.imread("haldiram.jpeg")
+
+# Create centroid dictionary
+new_data = create_centroid_dict(combined_dict)
+
+# Extract texts and centroids
+texts_centroids = [(text, centroid) for key, value in new_data.items() for text, centroid in zip(value['text'], value['centroid'])]
+sorted_texts_centroids = sorted(texts_centroids, key=lambda x: (x[1][1], x[1][0]))
+# Draw centroids on the image
+texts = [text for text, _ in sorted_texts_centroids]
+centroids = [centroid for _, centroid in sorted_texts_centroids]
+draw_centroids(image, centroids, texts)
+cv2.imwrite('finale_inference.jpg',image)
+# Display the image
+
+# Concatenate the texts in sorted order
+concatenated_string = ' '.join([text for text, _ in sorted_texts_centroids])
+print(concatenated_string)
