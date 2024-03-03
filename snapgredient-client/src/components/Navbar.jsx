@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -24,9 +23,6 @@ function Navbar() {
               width: "2rem",
               height: "auto",
               backgroundColor: "transparent",
-              // "@media (max-width: 660px)": {
-              //   width: "8rem",
-              // },
             }}
           />
           <Typography
@@ -37,10 +33,10 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily: "Kalnia ,serif",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#59981A",
+              color: "#032D3C",
               textDecoration: "none",
             }}
           >
@@ -55,15 +51,27 @@ function Navbar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: "Kalnia, serif",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#59981A",
+              color: "#032D3C",
               textDecoration: "none",
             }}
           >
             SNAPGREDIENT
           </Typography>
+          <img
+            src={logoImg}
+            className="logoImgNavbar"
+            alt="Website Logo"
+            style={{
+              display: { xs: "none", md: "flex" },
+              marginRight: 1,
+              color: "#5B8E7D",
+              width: "2rem",
+              height: "auto",
+            }}
+          />
         </Toolbar>
       </Container>
     </AppBar>

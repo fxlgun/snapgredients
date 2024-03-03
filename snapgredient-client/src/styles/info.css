@@ -1,0 +1,164 @@
+.mainContainer {
+  background-color: white;
+  height: fit-content;
+}
+
+.scoreContainer {
+  display: flex;
+  justify-content: center;
+  margin: 0px auto;
+  padding: 10px;
+  height: fit-content;
+  width: 100% !important;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: xx-large;
+  color: #032d3c;
+  border-radius: 14px;
+}
+.progressbar {
+  display: flex;
+  flex: 9;
+}
+/* .scoreDeetsList {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex: 1;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  color: #4be3ac;
+} */
+.categoryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+}
+
+.categoryCard {
+  background-color: #032d3c;
+  color: #f7ff56;
+  font-family: "Kalnia", serif;
+  font-weight: 300;
+  padding: 5px 14px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 250px;
+  height: 200px;
+  display: flex;
+  margin: 9px;
+  flex-direction: column;
+  line-height: 1.5;
+  position: relative;
+  box-shadow: 6px 6px;
+}
+.categoryHead {
+  font-family: "Sora", sans-serif;
+  font-weight: 800;
+  font-style: bolder;
+  font-size: x-large;
+  padding: 5px 8px;
+}
+.categoryDeets {
+  font-family: "Sora", sans-serif;
+  font-weight: 400;
+  font-style: bold;
+  font-size: large;
+  padding: 5px 8px;
+}
+
+.marqueeRow {
+  display: flex;
+}
+
+.categoryCard:hover {
+  background-color: #124050;
+  cursor: pointer;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: "Sora", sans-serif;
+  font-weight: 500;
+  font-style: bolder;
+  border-radius: 15px;
+  font-size: x-large;
+  border: none;
+  background-color: #4be3ac;
+}
+.btn:hover {
+  background-color: #1fc789;
+  cursor: pointer;
+}
+
+.CircularProgressbar-path {
+  position: absolute;
+  left: 35% !important;
+}
+
+@media only screen and (max-width: 650px) {
+  .categoryList {
+    display: flex;
+    flex-direction: column;
+    flex: 4;
+  }
+  .categoryCard {
+    background-color: #032d3c;
+    font-family: "Sora", sans-serif;
+    font-weight: 300;
+    padding: 5px 14px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    margin: 9px;
+    flex-direction: column;
+    line-height: 1.5;
+    justify-content: center;
+    position: relative;
+    box-shadow: 6px 6px;
+  }
+
+  .categoryCard:hover {
+    background-color: #124050;
+    cursor: pointer;
+  }
+  .scoreContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .categoryContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .moveLeft,
+  .moveRight {
+    width: 100%;
+  }
+  .categoryHead {
+    font-family: "Sora", sans-serif;
+    font-weight: 800;
+    font-style: bolder;
+    font-size: large;
+    padding: 5px 8px;
+  }
+  .categoryDeets {
+    font-family: "Sora", sans-serif;
+    font-weight: 400;
+    font-style: bold;
+    font-size: medium;
+    padding: 5px 8px;
+  }
+}
