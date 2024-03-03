@@ -1,15 +1,13 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "*.py",
-            "use": "@liudonghua123/now-flask"
-        }
+      {
+        "src": "Dockerfile",
+        "use": "@vercel/docker"
+      }
     ],
     "routes": [
-        {
-            "src": "(.*)",
-            "dest": "main.py"
-        }
+      { "handle": "filesystem" }
     ]
   }
+  
