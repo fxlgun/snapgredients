@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gemini import askgemini
 from ocr import ocr_scan
+import uvicorn
 
 app = FastAPI()
 
@@ -116,3 +117,6 @@ async def getcategories(data):
 @app.get("/")
 def welcome():
     return "Welcome to Snapgredient"
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
