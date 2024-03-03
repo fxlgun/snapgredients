@@ -1,0 +1,93 @@
+.UploadMainContiner{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.BackgroundContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .top-left,
+  .bottom-right {
+    position: absolute;
+    font-size: 200px; /* Adjust the font size as needed */
+    opacity: 0.2; /* Adjust the opacity for the faded effect */
+    z-index: 1; /* Set a higher z-index to position behind the main content */
+  }
+  
+  .top-left {
+    top: 0;
+    left: 0;
+  }
+  
+  .bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+  
+  .UploadMainContiner {
+    position: relative; /* Make sure the main content has a position other than static */
+    z-index: 2; /* Set a lower z-index to position above the background */
+    /* Adjust the styles for your main content */
+  }
+  
+  .CapitalBgmLetter{
+    color: #B5FE83;
+    opacity: 0.6;
+    font-family: "BioRhyme Expanded", serif;
+    font-weight: 600;      
+  }
+
+  .letter-left{
+    /* z-index: -2; */
+    font-size: 300;
+    position: absolute;
+    top: 80;
+    right: 30;
+  }
+
+  .letter-right{
+    /* z-index: -2; */
+    font-size: 300;
+    position: absolute;
+    top: 230;
+    left: 30;
+  }
+
+  .scan-computer{
+    align-self: center;
+    z-index: 5;
+    position: absolute;
+    top: 34%;
+  }
+
+ /* for mobile screens */
+
+  @media only screen and (max-width: 600px){
+    .CapitalBgmLetter{
+        color: #B5FE83;
+        opacity: 0.6 ;
+        font-family: "BioRhyme Expanded", serif;
+        font-weight: 400;
+      }
+
+      .top-left,
+      .bottom-right {
+        position: absolute;
+        font-size: 100px; /* Adjust the font size as needed */
+        opacity: 0.2; /* Adjust the opacity for the faded effect */
+        z-index: 1; /* Set a higher z-index to position behind the main content */
+      }
+
+      .scan-mobile{
+        align-self: center;
+        z-index: 5;
+        position: absolute;
+        top: 40%;
+      }
+  }
+

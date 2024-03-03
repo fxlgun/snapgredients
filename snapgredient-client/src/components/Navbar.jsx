@@ -7,15 +7,24 @@ import "../styles/global.css";
 
 function Navbar() {
   return (
-    <AppBar
-      position="static"
-      sx={{ boxShadow: 0, backgroundColor: "transparent" }}
-    >
+    <AppBar sx={{ boxShadow: 0, backgroundColor: "transparent" }}>
       <Container
         maxWidth="xl"
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Toolbar disableGutters>
+        <Toolbar>
+          <img
+            src={logoImg}
+            className="logoImgNavbar"
+            alt="Website Logo"
+            style={{
+              display: { xs: "none", md: "flex" },
+              marginRight: 8,
+              width: "2rem",
+              height: "auto",
+              backgroundColor: "transparent",
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -33,7 +42,6 @@ function Navbar() {
           >
             SNAPGREDIENT
           </Typography>
-
           <Typography
             variant="h5"
             noWrap
