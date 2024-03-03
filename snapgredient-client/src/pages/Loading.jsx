@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar";
-import "./styles/loading.css";
+import Navbar from "../components/Navbar";
+import "../styles/loading.css";
 
 const Loading = () => {
   return (

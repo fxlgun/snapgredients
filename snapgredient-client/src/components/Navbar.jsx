@@ -7,9 +7,17 @@ import "../styles/global.css";
 
 function Navbar() {
   return (
-    <AppBar sx={{ boxShadow: 0, backgroundColor: "transparent" }}>
+    <AppBar
+      sx={{
+        boxShadow: 0,
+        backgroundColor: "transparent",
+        position: "absolute",
+        top: 0,
+      }}
+    >
       <Container
         maxWidth="xl"
+        className="navbarContainer"
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <Toolbar>
@@ -33,10 +41,10 @@ function Navbar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "Kalnia ,serif",
+              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#032D3C",
+              color: "#59981A",
               textDecoration: "none",
             }}
           >
@@ -51,27 +59,15 @@ function Navbar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "Kalnia, serif",
+              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "#032D3C",
+              color: "#59981A",
               textDecoration: "none",
             }}
           >
             SNAPGREDIENT
           </Typography>
-          <img
-            src={logoImg}
-            className="logoImgNavbar"
-            alt="Website Logo"
-            style={{
-              display: { xs: "none", md: "flex" },
-              marginRight: 1,
-              color: "#5B8E7D",
-              width: "2rem",
-              height: "auto",
-            }}
-          />
         </Toolbar>
       </Container>
     </AppBar>

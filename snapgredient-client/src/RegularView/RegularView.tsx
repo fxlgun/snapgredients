@@ -4,10 +4,9 @@ import * as LR from "@uploadcare/blocks";
 import blocksStyles from "@uploadcare/blocks/web/lr-file-uploader-regular.min.css?url";
 import { OutputFileEntry } from "@uploadcare/blocks";
 
-import styles from './RegularView.module.css';
+import styles from "./RegularView.module.css";
 
-import axios from 'axios';
-
+import axios from "axios";
 
 LR.registerBlocks(LR);
 
@@ -17,33 +16,31 @@ const sendPic = async (url) => {
     const imageData = await fetchImageFromCDN(url);
 
     // Send image data to the server
-    await sendImageToServer(imageData);
+    await sendImageToServer(imageData, url);
   } catch (error) {
-    console.error('An unexpected error occurred:', error.message);
+    console.error("An unexpected error occurred:", error.message);
   }
   console.log(url);
-
-}
+};
 
 async function fetchImageFromCDN(cdnUrl) {
-  
   try {
-    const response = await axios.get(cdnUrl, { responseType: 'arraybuffer' });
+    const response = await axios.get(cdnUrl, { responseType: "arraybuffer" });
     return response.data;
   } catch (error) {
-    console.error('Error fetching image from CDN:', error.message);
+    console.error("Error fetching image from CDN:", error.message);
     throw error;
   }
 }
 
-async function sendImageToServer(imageData) {
-  const serverEndpoint = 'https://localhost:8000'; //change this with actual url
-  
+async function sendImageToServer(imageData, url) {
+  // const serverEndpoint = "https://localhost:8000"; //change this with actual url
+
   try {
-    const response = await axios.post(serverEndpoint, { imageData });
-    console.log('Image sent successfully:', response.data);
+    const response = await axios.post(url, { imageData });
+    console.log("Image sent successfully:", response.data);
   } catch (error) {
-    console.error('Error sending image to the server:', error.message);
+    console.error("Error sending image to the server:", error.message);
   }
 }
 
@@ -76,16 +73,16 @@ export default function RegularView() {
   }, [setFiles]);
 
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <lr-config
         ctx-name="my-uploader"
         pubkey="2b7f257e8ea0817ba746"
         sourceList="local, url, camera"
         multiple={false}
       ></lr-config>
-      <lr-file-uploader-regular
-        ctx-name="my-uploader"
-        css-src={blocksStyles}/>
+      <lr-file-uploader-regular ctx-name="my-uploader" css-src={blocksStyles} />
       <lr-upload-ctx-provider
         ctx-name="my-uploader"
         ref={ctxProviderRef}
@@ -100,18 +97,31 @@ export default function RegularView() {
               src={`${file.cdnUrl}/-/preview/-/resize/x400/`}
               width="400"
               height="200"
-            
               alt={file.fileInfo.originalFilename || ""}
               title={file.fileInfo.originalFilename || ""}
             />
 
-            <p className={styles.previewData}>{file.fileInfo.originalFilename}</p>
-            <p className={styles.previewData}>{formatSize(file.fileInfo.size)}</p>
+            <p className={styles.previewData}>
+              {file.fileInfo.originalFilename}
+            </p>
+            <p className={styles.previewData}>
+              {formatSize(file.fileInfo.size)}
+            </p>
           </div>
         ))}
       </div>
 
-      <button id="start-button" style={{width: 116, height: 30,  alignItems: "center", borderRadius: 8, border: "none"}} onClick={() => sendPic(files[0]['cdnUrl'])}>
+      <button
+        id="start-button"
+        style={{
+          width: 116,
+          height: 30,
+          alignItems: "center",
+          borderRadius: 8,
+          border: "none",
+        }}
+        onClick={() => sendPic(files[0]["cdnUrl"])}
+      >
         Start
       </button>
     </div>

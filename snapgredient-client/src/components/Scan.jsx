@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/scan.css";
 import UploadIconImg from "../public/upload-icon.png";
 import RegularView from "../RegularView/RegularView";

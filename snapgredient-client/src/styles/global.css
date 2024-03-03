@@ -3,6 +3,7 @@
 *::after {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 h1,
@@ -26,31 +27,30 @@ li {
 
 .uploadcare--widget__button.uploadcare--widget__button_type_open {
   background-color: #2b9dff;
-
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
-.center{
+.center {
   justify-content: center;
   align-items: center;
 }
 
-.column{
+.column {
   flex-direction: column;
 }
 
 /* misc */
 
-#start-button{
-  background-color: #387ADF;
+#start-button {
+  background-color: #387adf;
   color: white;
 }
 
-#start-button:hover{
-  background-color: #40A2E3;
+#start-button:hover {
+  background-color: #40a2e3;
   color: white;
   cursor: pointer;
 }
