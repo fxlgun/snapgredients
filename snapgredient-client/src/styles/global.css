@@ -42,3 +42,15 @@ li {
   flex-direction: column;
 }
 
+/* misc */
+
+#start-button{
+  background-color: #387ADF;
+  color: white;
+}
+
+#start-button:hover{
+  background-color: #40A2E3;
+  color: white;
+  cursor: pointer;
+}

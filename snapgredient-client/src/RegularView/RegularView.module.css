@@ -35,10 +35,12 @@
 
 
 
-.start-button{
+/* .start-button{
   height: 40px !important;
   width: 200px !important;
-  color: lightgrey;
-  border: 1px solid grey;
-   
-}
+  background-color: lightgrey;
+  border: 1px solid white;
+  border-radius: 20px;
+  color: grey;
+} */
+
