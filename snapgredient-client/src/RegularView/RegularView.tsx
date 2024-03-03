@@ -4,7 +4,8 @@ import * as LR from "@uploadcare/blocks";
 import blocksStyles from "@uploadcare/blocks/web/lr-file-uploader-regular.min.css?url";
 import { OutputFileEntry } from "@uploadcare/blocks";
 
-import st from "./RegularView.module.css";
+import styles from './RegularView.module.css';
+
 import axios from 'axios';
 
 
@@ -75,7 +76,7 @@ export default function RegularView() {
   }, [setFiles]);
 
   return (
-    <div>
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center" }}>
       <lr-config
         ctx-name="my-uploader"
         pubkey="2b7f257e8ea0817ba746"
@@ -90,26 +91,27 @@ export default function RegularView() {
         ref={ctxProviderRef}
       ></lr-upload-ctx-provider>
 
-      <div className={st.previews}>
+      <div className={styles.previews}>
         {files.map((file) => (
-          <div key={file.uuid} className={st.previewWrapper}>
+          <div key={file.uuid} className={styles.previewWrapper}>
             <img
-              className={st.previewImage}
+              className={styles.previewImage}
               key={file.uuid}
               src={`${file.cdnUrl}/-/preview/-/resize/x400/`}
-              width="200"
+              width="400"
               height="200"
+            
               alt={file.fileInfo.originalFilename || ""}
               title={file.fileInfo.originalFilename || ""}
             />
 
-            <p className={st.previewData}>{file.fileInfo.originalFilename}</p>
-            <p className={st.previewData}>{formatSize(file.fileInfo.size)}</p>
+            <p className={styles.previewData}>{file.fileInfo.originalFilename}</p>
+            <p className={styles.previewData}>{formatSize(file.fileInfo.size)}</p>
           </div>
         ))}
       </div>
 
-      <button id="start-button" styles={{width: 200, height: 35, color: "lightgrey",}} onClick={() => sendPic(files[0]['cdnUrl'])}>
+      <button id="start-button" style={{width: 116, height: 30,  alignItems: "center", borderRadius: 8, border: "none"}} onClick={() => sendPic(files[0]['cdnUrl'])}>
         Start
       </button>
     </div>

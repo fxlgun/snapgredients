@@ -11,12 +11,12 @@
     overflow: hidden;
   }
   
-  .top-left,
+  /* .top-left,
   .bottom-right {
     position: absolute;
-    font-size: 200px; /* Adjust the font size as needed */
-    opacity: 0.2; /* Adjust the opacity for the faded effect */
-    z-index: 1; /* Set a higher z-index to position behind the main content */
+    font-size: 200px; 
+    opacity: 0.2; 
+    z-index: 1; 
   }
   
   .top-left {
@@ -28,14 +28,14 @@
     bottom: 0;
     right: 0;
   }
-  
+   */
   .UploadMainContiner {
-    position: relative; /* Make sure the main content has a position other than static */
-    z-index: 2; /* Set a lower z-index to position above the background */
-    /* Adjust the styles for your main content */
+    position: relative; 
+    z-index: 2; 
+   
   }
   
-  .CapitalBgmLetter{
+  /* .CapitalBgmLetter{
     color: #B5FE83;
     opacity: 0.6;
     font-family: "BioRhyme Expanded", serif;
@@ -43,7 +43,7 @@
   }
 
   .letter-left{
-    /* z-index: -2; */
+    /* z-index: -2; 
     font-size: 300;
     position: absolute;
     top: 80;
@@ -51,12 +51,12 @@
   }
 
   .letter-right{
-    /* z-index: -2; */
+    /* z-index: -2; 
     font-size: 300;
     position: absolute;
     top: 230;
     left: 30;
-  }
+  } */
 
   .scan-computer{
     align-self: center;
@@ -68,7 +68,7 @@
  /* for mobile screens */
 
   @media only screen and (max-width: 600px){
-    .CapitalBgmLetter{
+    /* .CapitalBgmLetter{
         color: #B5FE83;
         opacity: 0.6 ;
         font-family: "BioRhyme Expanded", serif;
@@ -81,13 +81,13 @@
         font-size: 100px; /* Adjust the font size as needed */
         opacity: 0.2; /* Adjust the opacity for the faded effect */
         z-index: 1; /* Set a higher z-index to position behind the main content */
-      }
+      } */
 
       .scan-mobile{
         align-self: center;
         z-index: 5;
         position: absolute;
-        top: 40%;
+        top: 30%;
       }
   }
 
