@@ -1,9 +1,11 @@
 import json
 import os
+import threading
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gemini import askgemini
+from ocr import ocr_scan
 
 app = FastAPI()
 
@@ -16,15 +18,33 @@ app.add_middleware(
 )
 
 
+def delete_files_in_directory(directory):
+    # Get the list of files in the directory
+    files = os.listdir(directory)
+    
+    # Iterate through the files and delete them
+    for file in files:
+        file_path = os.path.join(directory, file)
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                print(f"Deleted: {file_path}")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+
+def delete_files_in_directory_threaded(directory):
+    thread = threading.Thread(target=delete_files_in_directory, args=(directory,))
+    thread.start()
+
+
 @app.post("/upload")
 async def upload_image(image: UploadFile = File(...)):
     try:
         contents = await image.read()
         with open(image.filename, "wb") as f:
             f.write(contents)
-        # result = ocr_scan(image.filename) 
-        result = ' 12), (508 (501) AULATOS 500 AND AND SOY MAY MUSTAD OATS MILK, RED POWDE: POWBER, TURTERIC POWDER, POWDER OIL, WHEAT SAT, QUTEN ADDTY MIDERS HUNETANT (451) (D). MASALA GSTEMBER (ONION SUGAR( PROTEIN TOASTED ONION 635), DWDER) IODIZED STARCH, SALT, PALIM OIL, REFUNED IODIZED WHEAT( MOUR (MAIDA), PALIM COMPANS GATAMOM HADDYED HOUR (MAIDA), REFUNED WHE POWER BY NUMAGE COVER GREAM WHEAT QUTEN. COMPINS AND NUT. WHEAT MIXED 25.6%) SPICES CHILII POWDER (ORANDER MINEAL, (330), MAKES REGULAR ACOTTY AND NOODIES INSTANT WITH BESONING* (GEDEN) MODE: GARING ANISED POWDE, CUMIN POWBER POWDER BLACK GNGER POWBER POWBER, FENDER DEOPER EMRANCE FAYOUR (508) THIDENER COLOUN (150D)'     
-        
+        result = ocr_scan(image.filename) 
+        print(result)
         obj = await getObj(result)
         # result = {
         #     'Rice Meal': 42.7,
@@ -45,6 +65,8 @@ async def upload_image(image: UploadFile = File(...)):
         cat = await getcategories(obj)
         cat = json.loads(cat)
         os.remove(image.filename)
+        delete_files_in_directory_threaded("Cropped_Images")
+        delete_files_in_directory_threaded("panaroma_images")
         return JSONResponse(content={"score": int(score), "categories": cat}, status_code=200)
     except Exception as e:
         print(e)
