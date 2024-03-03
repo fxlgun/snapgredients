@@ -1,49 +1,60 @@
-"""
-At the command line, only need to run once to install the package via pip:
+import requests
+import json
 
-$ pip install google-generativeai
-"""
+def askgemini(prompt):
+    GENERATE_CONTENT_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=AIzaSyAtQJG86qdIVOXbJt9c8JCeSgIydIOmJ0g"
+    
+    # Keep the configuration from your file
+    generation_config = {
+        "temperature": 0,
+        "top_p": 1,
+        "top_k": 1,
+        "max_output_tokens": 10000,
+    }
 
-import google.generativeai as genai
+    safety_settings = [
+        {
+            "category": "HARM_CATEGORY_HARASSMENT",
+            "threshold": "BLOCK_ONLY_HIGH"
+        },
+        {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "threshold": "BLOCK_ONLY_HIGH"
+        },
+        {
+            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            "threshold": "BLOCK_ONLY_HIGH"
+        },
+        {
+            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+            "threshold": "BLOCK_ONLY_HIGH"
+        },
+    ]
 
-genai.configure(api_key="AIzaSyAtQJG86qdIVOXbJt9c8JCeSgIydIOmJ0g")
+    request_body = {
+        "contents": [
+            {
+                "role": "user",
+                "parts": [
+                    {
+                        "text": prompt
+                    }
+                ]
+            }
+        ],
+        "generationConfig": generation_config,
+        "safetySettings": safety_settings
+    }
 
-# Set up the model
-generation_config = {
-  "temperature": 0,
-  "top_p": 1,
-  "top_k": 1,
-  "max_output_tokens": 10000,
-}
+    response = requests.post(GENERATE_CONTENT_URL, json=request_body)
 
-safety_settings = [
-  {
-    "category": "HARM_CATEGORY_HARASSMENT",
-    "threshold": "BLOCK_ONLY_HIGH"
-  },
-  {
-    "category": "HARM_CATEGORY_HATE_SPEECH",
-    "threshold": "BLOCK_ONLY_HIGH"
-  },
-  {
-    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-    "threshold": "BLOCK_ONLY_HIGH"
-  },
-  {
-    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-    "threshold": "BLOCK_ONLY_HIGH"
-  },
-]
+    if response.status_code == 200:
+        data = response.json()
+        # Extracting the response content
+        # Assuming there is only one content in the response for simplicity
+        newData = data['candidates'][0]['content']['parts'][0]['text']
+        return newData
+    else:
+        return f"Error: {response.status_code}"
 
-model = genai.GenerativeModel(model_name="gemini-1.0-pro",
-                              generation_config=generation_config,
-                              safety_settings=safety_settings)
 
-convo = model.start_chat(history=[
-])
-
-async def askgemini (prompt):
-    convo.send_message(prompt)
-    response  = convo.last.text
-    print('Gemini responded.')
-    return response
